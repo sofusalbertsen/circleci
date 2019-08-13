@@ -10,7 +10,9 @@ jobs:
           name: build and test
           command: ls
       -  persist_to_workspace:
-          root: test  
+          root: test
+          paths:
+            - .   
   package:
     docker:
       - image: circleci/openjdk:8-jdk
