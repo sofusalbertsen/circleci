@@ -1,0 +1,32 @@
+
+version: 2.0
+jobs:
+  test:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - run:
+          name: build and test
+          command: ls
+      -  persist_to_workspace:
+          root: test
+          paths:
+            - 2   
+  package:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: list
+          command: ls /tmp/workspace
+workflows:
+  version: 2
+  do_stuff:
+    jobs:
+      - test
+      - package:
+          requires:
+            - test
